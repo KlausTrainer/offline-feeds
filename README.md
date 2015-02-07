@@ -1,4 +1,4 @@
-My "sample app" for the couchDB Day. Couldn't finisch it in time but @svenlito helped me out after the talk!
+My "sample app" for the couchDB Day. Couldn't finisch it in time but @svenlito helped me out after the talk! This have should become a feedreader of some sorts. But it didn't worked out. Nevertheless it was fun playing and learnd a lot.
 
 In this setup you need a local couchDB running with some docs like this:
 
