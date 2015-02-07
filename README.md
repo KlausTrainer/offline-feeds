@@ -41,3 +41,15 @@ In this setup you need a local couchDB running with some docs like this:
 There are files for appCache and service workers.
 Feel free to ask what they mean and especially to send your fixes.
 
+To enable the the `serviceWorker` to connect to your couchDB consider running this (the referer header is the important part):
+
+```
+HOST=http://adminname:password@localhost:5984 # or whatever you got
+curl -X POST $HOST/_config/httpd/enable_cors -d '"true"'
+curl -X PUT $HOST/_config/cors/origins -d '"*"'
+curl -X PUT $HOST/_config/cors/credentials -d '"true"'
+curl -X PUT $HOST/_config/cors/methods -d '"GET, PUT, POST, HEAD, DELETE"'
+curl -X PUT $HOST/_config/cors/headers -d '"accept, authorization, content-type, origin, referer"'
+```
+
+Stolen and patched from https://github.com/nolanlawson/pouchdb-authentication
