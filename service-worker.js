@@ -1,12 +1,13 @@
 console.log('SW startup');
 
-importScripts('serviceworker-cache-polyfill.js');
+importScripts('serviceworker-cache-polyfill.js', 'vendor/pouchdb/dist/pouchdb.js');
+//importScripts('vendor/pouchdb/dist/pouchdb.js');
 
 var urlsToCache = [
-  '/index.html',
-  '/scripts/main.js',
-  '/scripts/template.js',
-  '/scripts/db.js',
+  'index.html',
+  'scripts/main.js',
+  'scripts/template.js',
+  'scripts/db.js',
   'vendor/pouchdb/dist/pouchdb.js',
   'vendor/normalize.css/normalize.css'
 ];
@@ -33,19 +34,30 @@ self.addEventListener('fetch', function(event) {
   event.respondWith(
     caches.match(event.request)
     .then(function(response) {
+      var attachmentRegex = '^https?://[^/]+/feed_images/(.+)/(.+)',
+          matches,
+          docId,
+          attachmentId,
+          db;
+
       if (response) {
         console.log(event.request.url, 'from cache');
         return response;
       }
 
+      matches = event.request.url.match(attachmentRegex);
 
-      if (event.request.url.match(/feed_images/)) {
-        console.log(event.request.url);
-      }
+      if (matches) {
+        db = new PouchDB('feeds');
 
-      if (event.request.url.match(/feeds/)) {
-        console.log(event.request);
-        return fetch(event.request);
+        docId = decodeURIComponent(matches[1]);
+        attachmentId = decodeURIComponent(matches[2]);
+
+        return db.getAttachment(docId, attachmentId).then(function(result) {
+          return new Promise(function(resolve, reject) {
+            return resolve(new Response(result, {headers: {'Content-Type': result.type}}));
+          });
+        });
       }
 
       console.log(event.request.url, 'not from cache');
