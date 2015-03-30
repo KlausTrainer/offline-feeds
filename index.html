@@ -1,60 +1,56 @@
 <!DOCTYPE html>
-<!-- <html manifest="manifest.appcache__"> -->
 <html>
+  <head>
+    <title>Offline on the Couch!</title>
+    <link rel="stylesheet" href="vendor/normalize.css/normalize.css" media="screen" title="no title" charset="utf-8">
 
-<head>
-  <title>Offline on the Couch!</title>
-  <link rel="stylesheet" href="vendor/normalize.css/normalize.css" media="screen" title="no title" charset="utf-8">
+    <style media="screen">
 
-  <style media="screen">
+      article {
+        width: 50%;
+        margin: 0 auto 100px;
+        padding: 25px;
+        background: lightgrey;
+      }
 
-    article {
-      width: 50%;
-      margin: 0 auto 100px;
-      padding: 25px;
-      background: lightgrey;
-    }
+      article img {
+        max-width: 100%;
+        height: auto;
+      }
 
-    article img {
-      max-width: 100%;
-      height: auto;
-    }
+      button {
+        background: lightgrey;
+        border: none;
+        margin: 0 auto;
+        display: inline-block;
+        position: relative;
+      }
 
-    button {
-      background: lightgrey;
-      border: none;
-      margin: 0 auto;
-      display: inline-block;
-      position: relative;
-    }
+    </style>
+  </head>
+  <body>
 
-  </style>
-</head>
+    <section class="posts">
 
-<body>
+    </section>
 
-  <section class="posts">
+    <button class="next">
+      next
+    </button>
 
-  </section>
+    <template data-templatename="post">
+      <article>
+        <header>
+          <h2 data-content="title"></h2>
+        </header>
+        <section data-content="body"></section>
+      </article>
+    </template>
 
-  <button class="next">
-    next
-  </button>
-
-  <template data-templatename="post">
-    <article>
-      <header>
-        <h2 data-content="title"></h2>
-      </header>
-      <section data-content="body"></section>
-    </article>
-  </template>
-
-  <script src="vendor/pouchdb/dist/pouchdb.js"></script>
-  <script src="scripts/template.js"></script>
-  <script src="scripts/service-worker-install.js"></script>
-  <script src="scripts/db.js"></script>
-  <script src="scripts/main.js"></script>
-</body>
-
+    <script src="vendor/pouchdb/dist/pouchdb.js"></script>
+    <script src="scripts/template.js"></script>
+    <script src="scripts/service-worker-install.js"></script>
+    <script src="scripts/db.js"></script>
+    <script src="scripts/main.js"></script>
+  </body>
 </html>

@@ -55,7 +55,7 @@ self.addEventListener('fetch', function(event) {
 
         return db.getAttachment(docId, attachmentId).then(function(result) {
           return new Promise(function(resolve, reject) {
-            return resolve(new Response(result, {headers: {'Content-Type': result.type}}));
+            resolve(new Response(result, {headers: {'Content-Type': result.type}}));
           });
         });
       }
