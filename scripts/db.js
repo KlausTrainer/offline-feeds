@@ -3,17 +3,15 @@
 var Feed = function(local, remote) {
   this.db = new PouchDB(local);
 
-  if (remote) {
-    this.remote = new PouchDB(remote);
-    this._startSync();
-  }
+  this.remote = new PouchDB(remote);
+  this._startSync();
 };
 
 /**
  * [_startSync description]
  */
 Feed.prototype._startSync = function() {
-  this.db.sync(this.remote, {
+  this.db.replicate.from(this.remote, {
     live: true
   }).on('change', function(change) {
     console.log(change);

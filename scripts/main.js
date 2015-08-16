@@ -1,6 +1,5 @@
 var App = function(feed) {
   this.feed = new Feed('feeds', 'http://localhost:5984/feeds');
-  // this.feed = new Feed('local-feeds', 'http://0.0.0.0:5984/feeds');
 
   this.ids = [];
   this.initEvents();

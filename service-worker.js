@@ -60,8 +60,6 @@ self.addEventListener('fetch', function(event) {
         });
       }
 
-      console.log(event.request.url, 'not from cache');
-
       return fetch(event.request);
     })
   );
